@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicExemple", "BasicExemple.csproj", "{05E96578-849F-4151-8FC6-3CB29A076E63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicExemple", "BasicExemple\BasicExemple.csproj", "{05E96578-849F-4151-8FC6-3CB29A076E63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "..\Test\Test.csproj", "{B40D761C-3B13-42B2-A589-71CD10D3C5E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B40D761C-3B13-42B2-A589-71CD10D3C5E6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{05E96578-849F-4151-8FC6-3CB29A076E63} = {05E96578-849F-4151-8FC6-3CB29A076E63}
 	EndProjectSection
