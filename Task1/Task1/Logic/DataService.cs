@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Task1.LogicLayer
 {
+    /// <summary>
+    /// Implementation of AbstractDataAPI as a Service
+    /// </summary>
     public class DataService
     {
         private BusinessLogicAPI logicAPI;
@@ -39,6 +42,16 @@ namespace Task1.LogicLayer
         public bool getAvaibility(String title, String author)
         {
             return logicAPI.dataAPI.isAvailible(new DataLayer.Catalog(title, author));
+        }
+
+        public DataLayer.State findBook(String title, String author)
+        {
+            return logicAPI.dataAPI.FindBook(title, author);    
+        }
+
+        public DataLayer.User findUser(String name,String surname)
+        {
+            return logicAPI.dataAPI.FindUser(name, surname);
         }
     }
 }
