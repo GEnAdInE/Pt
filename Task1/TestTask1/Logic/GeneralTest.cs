@@ -9,38 +9,76 @@ namespace TestTask1.Logic
     public class GeneralTest
     {
 
-        BusinessLogicAPI? API;
+        BusinessLogicAPI? APIBorrow;
+        BusinessLogicAPI? APIReturn;
 
-        Catalog mybook = new Catalog("Book1", "Author1");
-        User myUser = new User("User1", "Test");
+
+
+
+
+        public void GenerateUser()
+        {
+            APIBorrow.service.AddUser("John", "Doe");
+            APIBorrow.service.AddUser("Jane", "Doe");
+            APIBorrow.service.AddUser("Jack", "Doe");
+            APIBorrow.service.AddUser("Jill", "Doe");
+            APIBorrow.service.AddUser("Joe", "Doe");
+
+            APIReturn.service.AddUser("John", "Doe");
+            APIReturn.service.AddUser("Jane", "Doe");
+            APIReturn.service.AddUser("Jack", "Doe");
+            APIReturn.service.AddUser("Jill", "Doe");
+            APIReturn.service.AddUser("Joe", "Doe");
+        }
+        public void GenerateBook() { 
+            APIBorrow.service.AddBook("Victor Hugo", "Les Misérables");
+            APIBorrow.service.AddBook("Victor Hugo", "Le Petit Prince");
+            APIBorrow.service.AddBook("Stendhal", "Le Comte de Monte Cristo");
+            APIBorrow.service.AddBook("Shakespeare", "Hamlet");
+            APIBorrow.service.AddBook("Shakespeare", "Romeo et Juliette");
+
+            APIReturn.service.AddBook("Victor Hugo", "Les Misérables");
+            APIReturn.service.AddBook("Victor Hugo", "Le Petit Prince");
+            APIReturn.service.AddBook("Stendhal", "Le Comte de Monte Cristo");
+            APIReturn.service.AddBook("Shakespeare", "Hamlet");
+            APIReturn.service.AddBook("Shakespeare", "Romeo et Juliette");
+            APIReturn.service.findBook("Shakespeare", "Hamlet").ChangeState();
+        }
 
         [TestInitialize]
         public void Init()
         {
-            this.API = new BusinessLogicAPI(new DataAPI());
-            
-            API.dataAPI.addUser(myUser);
-            API.dataAPI.addBook(mybook);
+            this.APIBorrow = new BusinessLogicAPI(new DataAPIOnlyBorrow());
+            this.APIReturn = new BusinessLogicAPI(new DataAPIOnlyReturn());
+
+            GenerateUser();
+            GenerateBook();
         }
 
         [TestMethod]
         public void BorrowABookTest()
         {
 
-            Assert.IsTrue(API.service.getAvaibility(mybook.Title,mybook.Author));
-            API.service.BorrowOneBook(mybook.Title, mybook.Author, myUser.Name, myUser.Surname);
-            Assert.IsFalse(API.service.getAvaibility(mybook.Title, mybook.Author));
+            Assert.IsTrue(APIBorrow.service.getAvaibility("Victor Hugo", "Les Misérables"));
+            APIBorrow.service.BorrowOneBook("Victor Hugo", "Les Misérables", "John", "Doe");
+            Assert.IsFalse(APIBorrow.service.getAvaibility("Victor Hugo", "Les Misérables"));
+
+            Assert.IsTrue(APIReturn.service.getAvaibility("Victor Hugo", "Les Misérables"));
+            Assert.ThrowsException<NotImplementedException>(() =>
+            {
+                APIReturn.service.BorrowOneBook("Victor Hugo", "Les Misérables", "John", "Doe");
+            });
 
         }
 
         [TestMethod]
         public void ReturnABook()
         {
-            API.service.BorrowOneBook(mybook.Title, mybook.Author, myUser.Name, myUser.Surname);
-            API.service.ReturnOneBook(mybook.Title,mybook.Author,myUser.Name, myUser.Surname);
-            Assert.IsTrue(API.service.getAvaibility(mybook.Title, mybook.Author));
+            Assert.IsFalse(APIReturn.service.getAvaibility("Shakespeare", "Hamlet"));
+            Assert.ThrowsException<NotImplementedException>(() => { APIBorrow.service.ReturnOneBook("Victor Hugo", "Les Misérables", "John", "Doe"); });
+            APIReturn.service.ReturnOneBook("Shakespeare", "Hamlet", "John", "Doe");
 
-
+            Assert.IsTrue(APIReturn.service.getAvaibility("Shakespeare", "Hamlet"));
         }
     }
 }

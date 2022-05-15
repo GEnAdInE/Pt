@@ -14,6 +14,11 @@ namespace Task1.LogicLayer
         public BusinessLogicAPI(AbstractDataAPI dataAPI)
         {
             this.dataAPI = dataAPI;
+            this.dataAPI.states = new List<State>();
+            this.dataAPI.users = new List<User>();
+            this.dataAPI.events = new List<Event>();
+            this.dataAPI.catalogs = new List<Catalog>();
+
             service = new DataService(this);
         }
     }

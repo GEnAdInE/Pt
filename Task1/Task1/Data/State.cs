@@ -13,7 +13,7 @@
         /// <summary>
         /// Change the avaibility of the book
         /// </summary>
-        internal void ChangeState()
+        public void ChangeState()
         {
             if (Available)
             {
