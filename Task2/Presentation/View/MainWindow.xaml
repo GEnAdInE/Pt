@@ -24,7 +24,7 @@
         <Label x:Name="LabelUser" Content="Users :"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,30,0,0"/>
         <Button Grid.Column="1" Content="Borrow" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Width="77"/>
         <Button Grid.Column="1" Content="Return" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Width="77"/>
-        <GroupBox Header="Add\Remove Book" Grid.Row="2" Grid.Column="0">
+        <GroupBox Header="Edit\Remove Book" Grid.Row="2" Grid.Column="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="62*"></ColumnDefinition>
@@ -38,11 +38,11 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="Title:" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Height="26" Width="38"/>
-                <TextBox x:Name="TxtBoxAddTitle" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/>
+                <TextBox x:Name="TxtBoxEditTitle" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/>
 
                 <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="49"/>
-                <TextBox x:Name="TxtBoxAddAuthor" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Height="26" Margin="0,0,16,0"/>
-                <Button x:Name="BtnAddBook" Grid.Column="2" Content="Add" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
+                <TextBox x:Name="TxtBoxEditAuthor" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Height="26" Margin="0,0,16,0"/>
+                <Button x:Name="BtnEditBook" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
                 <Button x:Name="BtnRemoveBook" Grid.Column="0" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
 
 
@@ -50,7 +50,7 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="Add\Remove User" Grid.Row="2" Grid.Column="2">
+        <GroupBox Header="Edit\Remove User" Grid.Row="2" Grid.Column="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="69*"></ColumnDefinition>
@@ -64,11 +64,11 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="Firstname:" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Height="26" Width="64"/>
-                <TextBox x:Name="TxtBoxAddFirstname" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Margin="0,8,16,7"/>
+                <TextBox x:Name="TxtBoxEditFirstname" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Margin="0,8,16,7"/>
 
                 <Label Content="Surname:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="60"/>
-                <TextBox x:Name="TxtBoxAddSurname" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Margin="0,7,16,7"/>
-                <Button x:Name="BtnAddUser" Grid.Column="2" Content="Add" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="26"/>
+                <TextBox x:Name="TxtBoxEditSurname" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="" Width="Auto" Margin="0,7,16,7"/>
+                <Button x:Name="BtnEditUser" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="26"/>
                 <Button x:Name="BtnRemoveUser" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="46"/>
 
 
@@ -77,7 +77,7 @@
             </Grid>
         </GroupBox>
         <TabControl Grid.Column="1" Grid.Row="2">
-            <TabItem Header="Edit Book">
+            <TabItem Header="Add Book" Height="22" Margin="-2,-2,-2,0" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="87*"></ColumnDefinition>
@@ -89,39 +89,36 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
 
                     </Grid.RowDefinitions>
-                    <ComboBox x:Name="CmbBoxEditBook" HorizontalAlignment="Left" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="0" VerticalAlignment="Top" Width="250" Margin="5,3,0,0"/>
-                    <Label Content="Title:" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="64" Margin="0,29,0,0" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TxtBoxEditTitle" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
-                    <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="64" Margin="0,29,0,0" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TxtBoxEditAuthor" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
-                    <Button x:Name="BtnSaveBook" Grid.Column="2" Content="Save" HorizontalAlignment="Left" Grid.Row="3" Height="auto" Width="auto" VerticalAlignment="Center" Margin="23,0,0,0"/>
+                    <Label Content="Title:" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="64" Margin="0,5,0,0" Grid.Row="0" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TxtBoxAddTitle" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
+                    <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="64" Margin="0,5,0,0" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TxtBoxAddAuthor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
+                    <Button x:Name="BtnSaveBook" Grid.Column="2" Content="Add" HorizontalAlignment="Left" Grid.Row="3" Height="auto" Width="auto" VerticalAlignment="Center" Margin="23,0,0,0"/>
 
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Edit User">
+            <TabItem Header="Add User">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="17*"></ColumnDefinition>
+                        <ColumnDefinition Width="70*"/>
+                        <ColumnDefinition Width="87*"></ColumnDefinition>
+                        <ColumnDefinition Width="87*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
 
                     </Grid.RowDefinitions>
-                    <ComboBox x:Name="CmbBoxEditUser" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" VerticalAlignment="Top" Width="250" Margin="5,3,0,0"/>
-                    <Label Content="Firstname:" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="64"/>
-                    <TextBox x:Name="TxtBoxEditFirstname" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
-                    <Label Content="Surname:" HorizontalAlignment="Center" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="64"/>
-                    <TextBox x:Name="TxtBoxEditSurnamer" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
-                    <Button x:Name="BtnSavUser" Grid.Column="1" Content="Save" HorizontalAlignment="Center" Grid.Row="3" Height="auto" Width="auto" VerticalAlignment="Center"/>
+                    <Label Content="Firstname:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="64" Grid.ColumnSpan="2" Margin="11,0,0,0"/>
+                    <TextBox x:Name="TxtBoxAddFirstname" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="" Height="20" Width="Auto" Margin="0,9,0,9"/>
+                    <Label Content="Surname:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="64" Grid.ColumnSpan="2" Margin="11,38,0,0" Grid.RowSpan="2"/>
+                    <TextBox x:Name="TxtBoxAddSurname" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="" Height="20" Width="Auto" Margin="0,9,0,9"/>
+                    <Button x:Name="BtnSavUser" Grid.Column="2" Content="Add" HorizontalAlignment="Center" Grid.Row="2" Height="auto" Width="auto" VerticalAlignment="Center"/>
 
                 </Grid>
             </TabItem>
