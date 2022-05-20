@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;    
 using System.Windows.Shapes;
+using Task2.Presentation.ViewModel;
 
 namespace Task2.Presentation.View
 {
@@ -20,9 +21,23 @@ namespace Task2.Presentation.View
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        MainWindowViewModel viewModel;
         public MainWindow()
         {
+            viewModel = new MainWindowViewModel();
+            this.DataContext = viewModel;
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("ICI");
+        }
+
+        private void CmbBoxBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            viewModel.FetechAvaibilityCommand.Execute(this);
         }
     }
 }

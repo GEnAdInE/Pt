@@ -47,6 +47,9 @@ namespace Task2.Presentation.ViewModel
         }
 
         private Catalog ?m_catalog;
+        private bool m_status;
+        private User m_newUser = new User("", "");
+
         public Catalog SelectedCatalog
         {
             get => m_catalog;
@@ -57,15 +60,80 @@ namespace Task2.Presentation.ViewModel
             }
         }
 
-        public RelayCommand ?FetchDataCommend
+        public bool Status
+        {
+            get => m_status;
+            set
+            {
+                m_status = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public User newUser
+        {
+            get => m_newUser;
+            set
+            {
+                m_newUser = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public RelayCommand ?FetchDataCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand ?FetechAvaibilityCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? BorrowCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? ReturnCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? AddCatalogCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? AddUserCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? EditCatalogCommand
+        {
+            get; private set;
+        }
+
+        public RelayCommand? EditUserCommand
         {
             get; private set;
         }
 
 
-        public void MainWindowModel()
+        public MainWindowViewModel()
         {
-            FetchDataCommend = new RelayCommand(() => { });
+            
+          //NEED TO FETCH DATA ETC IDK HOW TO
+            FetchDataCommand = new RelayCommand(() => { });//TODO 
+            AddUserCommand = new RelayCommand (() =>
+            {
+                m_users.Add(new User(newUser.Name, newUser.Surname));
+            });
+            FetechAvaibilityCommand = new RelayCommand(() => { Status = !Status; });//TODO
+            m_catalogs = new ObservableCollection<Catalog> { new Catalog("tp", "td"), new Catalog("La vie", "Arthuer") };//REMOVE
+            m_users = new ObservableCollection<User> { new User("User1", "Toto"), new User("RObin", "Moulinou") };//REMOVE
+
 
         }
 
