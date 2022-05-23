@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task2.DataLayer.sql;
 
 namespace Task2.DataLayer
 {
@@ -11,12 +12,32 @@ namespace Task2.DataLayer
     /// </summary>
     public abstract class AbstractDataAPI
     {
-        public abstract List<Catalog> catalogs { get; set; }
-        public abstract List<State> states { get; set; } // states of the book
-        public abstract List<User> users { get; set; }  // all the users
-        public abstract List<Event> events { get; set; }  // event history 
+
+        private MyDataContext dataContext;
+        private List<Catalog> catalog;
+        private List<State> states;
+        private List<User> users;
+        private List<Event> events;
+
+        public List<Catalog> Catalogs { get { return this.catalog; } set { this.catalog = value; } }
+        public List<State> States { get { return this.states; } set { this.states = value;} }
+        
+        public List<User> Users { get { return this.users; } set { this.users = value; } }
+
+        public List<Event> Events { get { return this.events; } set { this.events = value; } }
+  
 
 
+
+    public AbstractDataAPI(MyDataContext dataContext)
+        {
+            this.dataContext = dataContext;
+            this.catalog = dataContext.GetTable<Catalog>().ToList();
+            this.states = dataContext.GetTable<State>().ToList();
+            this.users = dataContext.GetTable<User>().ToList();
+            this.events = dataContext.GetTable<Event>().ToList();
+          
+        }
        
 
         /// <summary>

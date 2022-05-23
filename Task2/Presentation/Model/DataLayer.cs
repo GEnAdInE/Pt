@@ -5,28 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Task2.DataLayer;
 
-namespace Presentation.Model
+namespace Task2.Presentation.Model
 {
     public class DataLayer : AbstractDataAPI
     {
-
-        private List<State>? localstates;
-        private List<User>? localusers;
-        private List<Catalog>? localCatalog;
-        private List<Event>? localEvent;
-
-        public override List<State> states { get { return localstates; } set { localstates = value; } }
-        public override List<User> users { get { return localusers; } set { localusers = value; } }
-        public override List<Catalog> catalogs { get { return localCatalog; } set { localCatalog = value; } }
-        public override List<Event> events { get { return localEvent; } set { localEvent = value; } }
-
+        public DataLayer(Task2.DataLayer.sql.MyDataContext dataContext) : base(dataContext)
+        {
+        }
 
         public override State FindBook(string title, string author)
         {
             try
             {
 
-                return states.Where(x => x.Book.Title == title && x.Book.Author == author).First();
+                return States.Where(x => x.Book.Title == title && x.Book.Author == author).First();
 
             }
             catch (Exception ex)
@@ -43,7 +35,7 @@ namespace Presentation.Model
                 User User = FindUser(Name, Surname);
                 if (User != null)
                 {
-                    events.Add(new Borrowing(state, User));
+                    Events.Add(new Borrowing(state, User));
                     state.ChangeState();
                 }
                 else
@@ -70,7 +62,7 @@ namespace Presentation.Model
                 State state = FindBook(Title, Author);
                 if (state != null)
                 {
-                    events.Add(new Returning(state, User));
+                    Events.Add(new Returning(state, User));
                     state.ChangeState();
 
                 }
@@ -85,7 +77,7 @@ namespace Presentation.Model
         {
             try
             {
-                return users.Where(x => x.Name == name && x.Surname == surname).First();
+                return Users.Where(x => x.Name == name && x.Surname == surname).First();
 
             }
             catch (Exception ex)
@@ -104,12 +96,12 @@ namespace Presentation.Model
         }
         public override void addBook(Catalog catalog)
         {
-            catalogs.Add(catalog);
-            states.Add(new State(catalog));
+            Catalogs.Add(catalog);
+            States.Add(new State(catalog));
         }
         public override void addUser(User user)
         {
-            users.Add(user);
+            Users.Add(user);
         }
     }
 }

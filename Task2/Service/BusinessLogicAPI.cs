@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task2.DataLayer;
+using Task2.DataLayer.sql;
 
 namespace Task2.LogicLayer
 {
@@ -14,13 +15,11 @@ namespace Task2.LogicLayer
         public BusinessLogicAPI(AbstractDataAPI dataAPI)
         {
             this.dataAPI = dataAPI;
-            this.dataAPI.states = new List<State>();
-            this.dataAPI.users = new List<User>();
-            this.dataAPI.events = new List<Event>();
-            this.dataAPI.catalogs = new List<Catalog>();
-
+            
             service = new DataService(this);
         }
+
+      
     }
 
     //todo : implement dataAPI 

@@ -13,6 +13,8 @@ namespace Task2.Presentation.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
 
+        private MainWindowModel mainModel = new MainWindowModel();
+
         private ObservableCollection<User> ?m_users;
         public ObservableCollection<User> Users
         {
@@ -123,6 +125,7 @@ namespace Task2.Presentation.ViewModel
 
         public MainWindowViewModel()
         {
+            mainModel.setDataContext();
             
           //NEED TO FETCH DATA ETC IDK HOW TO
             FetchDataCommand = new RelayCommand(() => { });//TODO 
