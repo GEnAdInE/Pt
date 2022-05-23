@@ -1,29 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Sql\database.mdf;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="databaseConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Catalogs" Member="Catalogs">
     <Type Name="Catalogs">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Author" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Catalogs_Event" Member="Event" ThisKey="Id" OtherKey="Book" Type="Event" />
-      <Association Name="Catalogs_State" Member="State" ThisKey="Id" OtherKey="Book" Type="State" />
+      <Association Name="Catalogs_States" Member="States" ThisKey="Id" OtherKey="Book" Type="States" />
     </Type>
   </Table>
-  <Table Name="dbo.Event" Member="Event">
-    <Type Name="Event">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Book" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="[User]" Member="User" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Catalogs_Event" Member="Catalogs" ThisKey="Book" OtherKey="Id" Type="Catalogs" IsForeignKey="true" />
-      <Association Name="Users_Event" Member="Users" ThisKey="User" OtherKey="Id" Type="Users" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.State" Member="State">
-    <Type Name="State">
+  <Table Name="dbo.States" Member="States">
+    <Type Name="States">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Book" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Availible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Catalogs_State" Member="Catalogs" ThisKey="Book" OtherKey="Id" Type="Catalogs" IsForeignKey="true" />
+      <Association Name="States_Events" Member="Events" ThisKey="Id" OtherKey="stateId" Type="Events" />
+      <Association Name="Catalogs_States" Member="Catalogs" ThisKey="Book" OtherKey="Id" Type="Catalogs" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Events" Member="Events">
+    <Type Name="Events">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="stateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="States_Events" Member="States" ThisKey="stateId" OtherKey="Id" Type="States" IsForeignKey="true" />
+      <Association Name="Users_Events" Member="Users" ThisKey="userId" OtherKey="Id" Type="Users" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Users" Member="Users">
@@ -31,7 +32,7 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Surname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Users_Event" Member="Event" ThisKey="Id" OtherKey="User" Type="Event" />
+      <Association Name="Users_Events" Member="Events" ThisKey="Id" OtherKey="userId" Type="Events" />
     </Type>
   </Table>
 </Database>
