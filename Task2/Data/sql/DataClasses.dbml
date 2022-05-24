@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="database" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Sql\database.mdf;Integrated Security=True" SettingsObjectName="Data.Properties.Settings" SettingsPropertyName="databaseConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Users" Member="Users">
+    <Type Name="Users">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Surname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="Users_Events" Member="Events" ThisKey="Id" OtherKey="userId" Type="Events" />
+    </Type>
+  </Table>
   <Table Name="dbo.Catalogs" Member="Catalogs">
     <Type Name="Catalogs">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Author" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Title" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="Catalogs_States" Member="States" ThisKey="Id" OtherKey="Book" Type="States" />
-    </Type>
-  </Table>
-  <Table Name="dbo.States" Member="States">
-    <Type Name="States">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Book" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Availible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="States_Events" Member="Events" ThisKey="Id" OtherKey="stateId" Type="Events" />
-      <Association Name="Catalogs_States" Member="Catalogs" ThisKey="Book" OtherKey="Id" Type="Catalogs" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Events" Member="Events">
@@ -23,16 +22,17 @@
       <Column Name="stateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="userId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="description" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="States_Events" Member="States" ThisKey="stateId" OtherKey="Id" Type="States" IsForeignKey="true" />
       <Association Name="Users_Events" Member="Users" ThisKey="userId" OtherKey="Id" Type="Users" IsForeignKey="true" />
+      <Association Name="States_Events" Member="States" ThisKey="stateId" OtherKey="Id" Type="States" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Users" Member="Users">
-    <Type Name="Users">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Name" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Surname" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Association Name="Users_Events" Member="Events" ThisKey="Id" OtherKey="userId" Type="Events" />
+  <Table Name="dbo.States" Member="States">
+    <Type Name="States">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Book" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Availible" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="States_Events" Member="Events" ThisKey="Id" OtherKey="stateId" Type="Events" />
+      <Association Name="Catalogs_States" Member="Catalogs" ThisKey="Book" OtherKey="Id" Type="Catalogs" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

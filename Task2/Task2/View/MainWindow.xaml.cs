@@ -37,7 +37,7 @@ namespace Task2.Presentation.View
 
         private void CmbBoxBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //viewModel.FetechAvaibilityCommand.Execute(this);
+            viewModel.m_command_Availible.Execute(this);
         }
     }
 }

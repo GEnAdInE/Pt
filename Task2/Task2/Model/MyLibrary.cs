@@ -69,26 +69,69 @@ namespace Task2.Presentation.Model
 
         public void RemoveUser(User u)
         {
-            users.Remove(u);
-            businesAPi.dataAPI.removeUser(u.Name,u.Surname);
+            if(u != null)
+            {
+                if (users.Contains(u))
+                {
+                    users.Remove(u);
+                    businesAPi.dataAPI.removeUser(u.Name, u.Surname);
+                }
+                   
+            }
+            
         }
 
         public void RemoveBook(Catalog c)
         {
-            catalogs.Remove(c);
-            businesAPi.dataAPI.removeBook(c.Title, c.Author);
+            if (c != null)
+            {
+                if (catalogs.Contains(c))
+                {
+                
+                catalogs.Remove(c);
+                businesAPi.dataAPI.removeBook(c.Title, c.Author);
+            }
+            }
+            
         }
 
         public void Borrow(string title,string author,User user)
         {
             State state = STATES.First(s => s.Book.Title == title && s.Book.Author == author && s.Available == true);
-            events.Add(new Borrowing(state, user));
-            businesAPi.service.BorrowOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
+            if (state != null && user != null)
+            {
+                events.Add(new Borrowing(state, user));
+                state.ChangeState();
+                businesAPi.service.BorrowOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
+            }
         }
 
-        public void Return()
+        public void Return(string title, string author, User user)
         {
+            State state = STATES.First(s => s.Book.Title == title && s.Book.Author == author && s.Available == true);
+            if(state != null && user != null)
+            {
+                events.Add(new Returning(state, user));
+                state.ChangeState();
+                businesAPi.service.ReturnOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
 
+            }
+            
+
+        }
+
+        public bool isAvailble(string title,string authoer)
+        {
+            States s = (businesAPi.service.findBook(title, authoer));
+            if(s == null)
+            {
+                return false;
+            }
+            if(s.Availible == 1)
+            {
+                return true;
+            }
+            return false;
         }
 
     }

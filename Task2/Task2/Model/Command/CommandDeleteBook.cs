@@ -19,8 +19,11 @@ namespace Task2.Presentation.Model.Command
         }
         public override void Execute(object parameter)
         {
-            _lib.RemoveBook(_mvw.SelectedCatalog);
-            _mvw.Catalogs.Remove(_mvw.SelectedCatalog);
+            if (_mvw.SelectedCatalog != null)
+            {
+                _lib.RemoveBook(_mvw.SelectedCatalog);
+                _mvw.Catalogs.Remove(_mvw.SelectedCatalog);
+            }
         }
 
     }

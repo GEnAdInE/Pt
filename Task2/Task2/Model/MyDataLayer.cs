@@ -16,13 +16,17 @@ namespace Task2.Presentation.Model
 
         public override States FindBook(string title, string author)
         {
-            if(Catalogs.Count > 0 && States.Count > 0)
+            
+            foreach(Catalogs c in this.Catalogs)
             {
-                Catalogs tmp = Catalogs.Where(x => x.Title == title && x.Author == author).First();
-                return States.Where(x => x.Book == tmp.Id).First();
+                if(c.Title == title && c.Author == author)
+                {
+                    return States.Where(x => x.Book == c.Id).First();
+
+                }
             }
             return null;
-           
+
         }
         public override void Borrow(string Title, string Author, string Name, string Surname)
         {
@@ -32,10 +36,14 @@ namespace Task2.Presentation.Model
                 Users User = FindUser(Name, Surname);
                 if (User != null)
                 {
+                    
 
                     dataContext.Events.InsertOnSubmit(new Events { stateId = state.Id , userId = User.Id , description = "borrow"});
                     dataContext.SubmitChanges();
                     this.Events = dataContext.GetTable<Events>().ToList();
+
+                    state.Availible = 0;
+                    dataContext.SubmitChanges();
                 }
                 else
                 {
@@ -64,6 +72,9 @@ namespace Task2.Presentation.Model
                     dataContext.Events.InsertOnSubmit(new Events { stateId = state.Id, userId = User.Id, description = "Return" });
                     dataContext.SubmitChanges();
                     Events = dataContext.GetTable<Events>().ToList();
+                    state.Availible = 1;
+                    dataContext.SubmitChanges();
+
                 }
                 else
                 {
@@ -101,7 +112,9 @@ namespace Task2.Presentation.Model
             int id = -1;
             if (FindBook(catalog.Title, catalog.Author) == null)
             {
-                dataContext.Catalogs.InsertOnSubmit(new Catalogs { Title = catalog.Title, Author = catalog.Author });
+                Catalogs tmp = new Catalogs { Title = catalog.Title, Author = catalog.Author };
+               
+                dataContext.Catalogs.InsertOnSubmit(tmp);
                 dataContext.SubmitChanges();
                 Catalogs = dataContext.GetTable<Catalogs>().ToList();
                 id = Catalogs.Where(x => x.Title == catalog.Title && x.Author == catalog.Author).First().Id;
@@ -112,19 +125,39 @@ namespace Task2.Presentation.Model
         }
         public override void addUser(Users user)
         {
-            Users.Add(user);
+            dataContext.Users.InsertOnSubmit(new Users {Name = user.Name,Surname = user.Surname});
+            dataContext.SubmitChanges();
+            Users = dataContext.GetTable<Users>().ToList();
         }
 
         public override void removeBook(string title,string author)
         {
-            States s = FindBook(title, author);
-            if(s != null)
+            States st = FindBook(title, author);
+            Predicate<Catalogs> Predicate = x => x.Id == st.Id;
+            Catalogs catalog;
+            if (Catalogs.Exists(Predicate))
             {
-                States.Remove(s);
-                Catalogs.Remove(Catalogs.Where(x => x.Title == title && x.Author == author).First());
+                catalog = Catalogs.Find(Predicate);
             }
-               
-           
+            else
+            {
+                throw new ArgumentException("Book not found");
+            }
+
+            Predicate<States> predicate = x => x.Id == catalog.Id;
+
+            if (States.Exists(predicate))
+            {
+                foreach (States s in States.FindAll(predicate))
+                {
+                    dataContext.States.DeleteOnSubmit(s);
+                }
+            }
+            dataContext.Catalogs.DeleteOnSubmit(catalog);
+            dataContext.SubmitChanges();
+            Catalogs = dataContext.GetTable<Catalogs>().ToList();
+
+
         }
 
         public override void removeUser(string name,string firstname)

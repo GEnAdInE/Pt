@@ -101,6 +101,10 @@ namespace Task2.Presentation.ViewModel
         public CommandBase m_command_AddUser { get; set; }
         public CommandBase m_command_RemoveUser { get; set; }
 
+        public CommandBase m_command_Availible { get; set; }
+
+        public CommandBase m_command_Borrow { get; set; }
+        public CommandBase m_command_Return { get; set; }
 
 
         public MainWindowViewModel()
@@ -115,7 +119,11 @@ namespace Task2.Presentation.ViewModel
 
             m_command_RemoveBook= new CommandDeleteBook(this, this.mainModel.myLibrary);
 
+            m_command_Availible = new CommandIsAvailible(this,this.mainModel.myLibrary);
 
+            m_command_Borrow = new CommandBorrow(this, ref this.mainModel.myLibrary);
+
+            m_command_Return = new CommandBorrow(this, ref this.mainModel.myLibrary);
         }
 
     }
