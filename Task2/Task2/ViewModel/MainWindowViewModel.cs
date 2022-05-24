@@ -15,7 +15,7 @@ namespace Task2.Presentation.ViewModel
     {
 
         
-        private MainWindowModel mainModel = new MainWindowModel();
+        public MainWindowModel mainModel = new MainWindowModel();
 
         private ObservableCollection<User> m_users;
         public ObservableCollection<User> Users
@@ -149,7 +149,7 @@ namespace Task2.Presentation.ViewModel
 
             m_command_Borrow = new CommandBorrow(this, ref this.mainModel.myLibrary);
 
-            m_command_Return = new CommandBorrow(this, ref this.mainModel.myLibrary);
+            m_command_Return = new CommandReturn(this, ref this.mainModel.myLibrary);
             m_command_EditBook = new CommandEditBook(this, ref this.mainModel.myLibrary);
             m_command_EditUser = new CommandEditUser(this, ref this.mainModel.myLibrary);
         }

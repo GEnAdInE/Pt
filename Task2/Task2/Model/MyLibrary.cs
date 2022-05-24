@@ -37,9 +37,13 @@ namespace Task2.Presentation.Model
             foreach (Catalogs c in businesAPi.dataAPI.Catalogs)
             {
                 Catalog book = new Catalog(c.Title, c.Author);
+                State st = new State(book);
+                if (businesAPi.service.findBook(c.Title, c.Author).Availible == 0)
+                    st.Available = false;
                 catalogs.Add(book);
-                states.Add(new State(book));
+                states.Add(st);
             }
+           
          
         }
 
@@ -106,44 +110,56 @@ namespace Task2.Presentation.Model
 
         public void Borrow(string title,string author,User user)
         {
-            State state = STATES.First(s => s.Book.Title == title && s.Book.Author == author && s.Available == true);
-            if (state != null && user != null)
-            {
-                events.Add(new Borrowing(state, user));
-                state.ChangeState();
-                businesAPi.service.BorrowOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
-                MessageBox.Show("Borrowed");
+            
+                State state = STATES.Find(s => s.Book.Title == title && s.Book.Author == author && s.Available == true);
+                if (state != null && user != null)
+                {
+                    events.Add(new Borrowing(state, user));
+                    state.ChangeState();
+                    businesAPi.service.BorrowOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
+                    MessageBox.Show("Borrowed");
 
-            }
+                }
+            
         }
 
         public void Return(string title, string author, User user)
         {
-            State state = STATES.First(s => s.Book.Title == title && s.Book.Author == author && s.Available == true);
-            if(state != null && user != null)
-            {
-                events.Add(new Returning(state, user));
-                state.ChangeState();
-                businesAPi.service.ReturnOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
-                MessageBox.Show("Returned");
+            
+                State state = STATES.Find(s => s.Book.Title == title && s.Book.Author == author && s.Available == false);
+                if (state != null && user != null)
+                {
+                    Task.Run(() =>
+                    {
+                        events.Add(new Returning(state, user));
+                        state.ChangeState();
+                        businesAPi.service.ReturnOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
+                        MessageBox.Show("Returned");
 
-            }
+                    });
+
+
+                }
+           
 
 
         }
 
         public bool isAvailble(string title,string authoer)
         {
-            States s = (businesAPi.service.findBook(title, authoer));
-            if(s == null)
-            {
+            
+                States s = (businesAPi.service.findBook(title, authoer));
+                if (s == null)
+                {
+                    return false;
+                }
+                if (s.Availible == 1)
+                {
+                    return true;
+                }
                 return false;
-            }
-            if(s.Availible == 1)
-            {
-                return true;
-            }
-            return false;
+            
+           
         }
 
         public void EditUser(string name,string firstname,string nName,string nfirstname)
