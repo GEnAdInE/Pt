@@ -54,7 +54,8 @@ namespace Task2.Presentation.ViewModel
         private bool m_status;
         private User m_newUser = new User("", "");
         private Catalog m_newCatalog = new Catalog("", "");
-
+        private Catalog m_editCatalog;
+        private User m_editUser;
 
         public Catalog newCatalog
         {
@@ -73,6 +74,28 @@ namespace Task2.Presentation.ViewModel
             {
                 m_catalog = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public Catalog EditCatalog
+        {
+            get => m_editCatalog;
+            set
+            {
+                m_editCatalog = value;
+                RaisePropertyChanged();
+            
+            }
+        }
+
+        public User EditUser
+        {
+            get => m_editUser;
+            set
+            {
+                m_editUser = value;
+                RaisePropertyChanged();
+
             }
         }
 
@@ -106,6 +129,9 @@ namespace Task2.Presentation.ViewModel
         public CommandBase m_command_Borrow { get; set; }
         public CommandBase m_command_Return { get; set; }
 
+        public CommandBase m_command_EditBook { get; set; }
+        public CommandBase m_command_EditUser { get; set; }
+
 
         public MainWindowViewModel()
         {
@@ -124,6 +150,8 @@ namespace Task2.Presentation.ViewModel
             m_command_Borrow = new CommandBorrow(this, ref this.mainModel.myLibrary);
 
             m_command_Return = new CommandBorrow(this, ref this.mainModel.myLibrary);
+            m_command_EditBook = new CommandEditBook(this, ref this.mainModel.myLibrary);
+            m_command_EditUser = new CommandEditUser(this, ref this.mainModel.myLibrary);
         }
 
     }

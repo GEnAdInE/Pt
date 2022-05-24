@@ -19,8 +19,12 @@ namespace Task2.Presentation.Model.Command
         }
         public override void Execute(object parameter)
         {
-            _lib.RemoveUser(_mvw.SelectedUser);
-            _mvw.Users.Remove(_mvw.SelectedUser);
+            if(_mvw.SelectedUser != null)
+            {
+                _lib.RemoveUser(_mvw.SelectedUser);
+                _mvw.Users.Remove(_mvw.SelectedUser);
+            }
+            
         }
     }
 }

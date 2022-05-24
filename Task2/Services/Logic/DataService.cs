@@ -53,5 +53,14 @@ namespace Task2.LogicLayer
         {
             return logicAPI.dataAPI.FindUser(name, surname);
         }
+
+        public void EditUSer(string name,string surname,string nName,string nSurname)
+        {
+            logicAPI.dataAPI.EditUser(name,surname,nName,nSurname);
+        }
+        public void EditBook(string Title, string Author, string nTitle, string nAuthor)
+        {
+            logicAPI.dataAPI.EditBook(Title, Author, nTitle, nAuthor);
+        }
     }
 }

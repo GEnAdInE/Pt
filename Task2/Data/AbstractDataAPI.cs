@@ -75,6 +75,9 @@ namespace Task2.DataLayer
 
         public abstract void removeBook(string Title, string Author);
 
+        public abstract void EditBook(string title,string author,string nTitle,string nAuthor);
+        public abstract void EditUser(string name, string surname, string nName, string nSurname);
+
         /// <summary>
         /// Return the state of a book 
         /// </summary>

@@ -169,5 +169,32 @@ namespace Task2.Presentation.Model
             }
         }
 
+        public override void EditBook(string title, string author, string nTitle, string nAuthor)
+        {
+            States s = FindBook(title, author);
+            if(s != null)
+            {
+                Catalogs c = Catalogs.Find(x => x.Id == s.Book);
+                if(c != null)
+                {
+                    c.Author = nAuthor;
+                    c.Title = nTitle;
+                    dataContext.SubmitChanges();
+                }
+            }
+
+        }
+
+        public override void EditUser(string name, string surname, string nName, string nSurname)
+        {
+            Users u = FindUser(name, surname);
+            if(u != null)
+            {
+                u.Surname = nSurname;
+                u.Name = nName;
+                dataContext.SubmitChanges();
+            }
+
+        }
     }
 }

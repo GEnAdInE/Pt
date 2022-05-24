@@ -25,7 +25,7 @@
         </ComboBox>
         <Label x:Name="LabelBook" Content="Books :"  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,30,0,0"/>
 
-        <ComboBox  x:Name="CmbBoxUser" HorizontalAlignment="Center" ItemsSource="{Binding Path=Users}" SelectedItem="{Binding Path=SelectedUser}" Grid.Column="2" Grid.Row="0"  VerticalAlignment="Center" Width="248"/>
+        <ComboBox  x:Name="CmbBoxUser" HorizontalAlignment="Center" ItemsSource="{Binding Path=Users}" SelectedItem="{Binding Path=SelectedUser}" SelectionChanged="CmbBoxUser_SelectionChanged" Grid.Column="2" Grid.Row="0"  VerticalAlignment="Center" Width="248"/>
         <Label x:Name="LabelUser" Content="Users :"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="10,30,0,0"/>
         <Button Grid.Column="1" Command="{Binding m_command_Borrow}" Content="Borrow" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" Width="77" Click="Button_Click"/>
         <Button Grid.Column="1" Command="{Binding m_command_Return}" Content="Return" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Width="77"/>
@@ -43,11 +43,11 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="Title:" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Height="26" Width="38"/>
-                <TextBox x:Name="TxtBoxEditTitle" Grid.Row="0" Grid.Column="1"  TextWrapping="Wrap" Text="{Binding Path=SelectedCatalog.Title}" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/>
+                <TextBox x:Name="TxtBoxEditTitle" Grid.Row="0" Grid.Column="1"  TextWrapping="Wrap" Text="{Binding Path=EditCatalog.Title}" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/>
 
                 <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="49"/>
-                <TextBox x:Name="TxtBoxEditAuthor" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=SelectedCatalog.Author}" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/> 
-                <Button x:Name="BtnEditBook" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
+                <TextBox x:Name="TxtBoxEditAuthor" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=EditCatalog.Author}" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/> 
+                <Button x:Name="BtnEditBook" Grid.Column="2" Command="{Binding m_command_EditBook}" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
                 <Button x:Name="BtnRemoveBook" Grid.Column="0" Command="{Binding m_command_RemoveBook}" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
 
 
@@ -69,11 +69,11 @@
 
                 </Grid.RowDefinitions>
                 <Label Content="Firstname:" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Top" Height="26" Width="64"/>
-                <TextBox x:Name="TxtBoxEditFirstname" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=SelectedUser.Name}" Width="Auto" Margin="0,8,16,7"/>
+                <TextBox x:Name="TxtBoxEditFirstname" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=EditUser.Name}" Width="Auto" Margin="0,8,16,7"/>
 
                 <Label Content="Surname:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="60"/>
-                <TextBox x:Name="TxtBoxEditSurname" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=SelectedUser.Surname}" Width="Auto" Margin="0,7,16,7"/>
-                <Button x:Name="BtnEditUser" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="26"/>
+                <TextBox x:Name="TxtBoxEditSurname" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=EditUser.Surname}" Width="Auto" Margin="0,7,16,7"/>
+                <Button x:Name="BtnEditUser" Grid.Column="2" Command="{Binding m_command_EditUser}" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="26"/>
                 <Button x:Name="BtnRemoveUser" Content="Remove" HorizontalAlignment="Center" Command="{Binding m_command_RemoveUser}"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="46"/>
 
 
