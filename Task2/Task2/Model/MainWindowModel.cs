@@ -11,24 +11,12 @@ namespace Task2.Presentation.Model
 {
     public class MainWindowModel
     {
-       public BusinessLogicAPI businessLogicAPI;
+       public MyLibrary myLibrary;
 
-        public void setDataContext()
+        public MainWindowModel()
         {
-            
-            string m_connection = "";
-            string _StringDb = @"sql\database.mdf";
-            string _workingFOlder = Environment.CurrentDirectory;
-            string _path = Path.Combine(_workingFOlder, _StringDb);
-            FileInfo f = new FileInfo(_path);
-            if (f.Exists)
-            {
-                m_connection = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_path};Integrated Security=True;Connect Timeout=30";
-            }
-            DataClassesDataContext myData = new DataClassesDataContext(m_connection);
-            businessLogicAPI = new BusinessLogicAPI(new MyDataLayer(myData));
-
-            
+            myLibrary = new MyLibrary();
         }
+     
     }
 }

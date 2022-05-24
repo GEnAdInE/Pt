@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Task2.Presentation.View" xmlns:viewmodel="clr-namespace:Task2.Presentation.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
+        xmlns:local="clr-namespace:Task2.Presentation.View" 
+        xmlns:viewmodel="clr-namespace:Task2.Presentation.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainWindowViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
    
@@ -46,7 +48,7 @@
                 <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="49"/>
                 <TextBox x:Name="TxtBoxEditAuthor" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=SelectedCatalog.Author}" Width="Auto" Height="26" Margin="0,0,16,40" Grid.RowSpan="2"/> 
                 <Button x:Name="BtnEditBook" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
-                <Button x:Name="BtnRemoveBook" Grid.Column="0" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
+                <Button x:Name="BtnRemoveBook" Grid.Column="0" Command="{Binding m_command_RemoveBook}" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="Auto"/>
 
 
 
@@ -72,7 +74,7 @@
                 <Label Content="Surname:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="60"/>
                 <TextBox x:Name="TxtBoxEditSurname" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Path=SelectedUser.Surname}" Width="Auto" Margin="0,7,16,7"/>
                 <Button x:Name="BtnEditUser" Grid.Column="2" Content="Edit" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="26"/>
-                <Button x:Name="BtnRemoveUser" Content="Remove" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="46"/>
+                <Button x:Name="BtnRemoveUser" Content="Remove" HorizontalAlignment="Center" Command="{Binding m_command_RemoveUser}"  Grid.Row="2" VerticalAlignment="Center" Height="20" Width="46"/>
 
 
 
@@ -95,10 +97,10 @@
 
                     </Grid.RowDefinitions>
                     <Label Content="Title:" HorizontalAlignment="Center" VerticalAlignment="Top" Height="26" Width="64" Margin="0,5,0,0" Grid.Row="0" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TxtBoxAddTitle" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
+                    <TextBox x:Name="TxtBoxAddTitle" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{Binding Path=newCatalog.Title}" Height="20" Width="Auto"/>
                     <Label Content="Author:" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Height="26" Width="64" Margin="0,5,0,0" Grid.RowSpan="2"/>
-                    <TextBox x:Name="TxtBoxAddAuthor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="" Height="20" Width="Auto"/>
-                    <Button x:Name="BtnSaveBook" Grid.Column="2" Content="Add" HorizontalAlignment="Left" Grid.Row="3" Height="auto" Width="auto" VerticalAlignment="Center" Margin="23,0,0,0"/>
+                    <TextBox x:Name="TxtBoxAddAuthor" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{Binding Path=newCatalog.Author}" Height="20" Width="Auto"/>
+                    <Button x:Name="BtnSaveBook" Grid.Column="2" Command="{Binding m_command_AddBook}" Content="Add" HorizontalAlignment="Left" Grid.Row="3" Height="auto" Width="auto" VerticalAlignment="Center" Margin="23,0,0,0"/>
 
                 </Grid>
 
@@ -121,7 +123,7 @@
                     <TextBox x:Name="TxtBoxAddFirstname" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Path=newUser.Name}" Height="20" Width="Auto" Margin="0,9,0,9"/>
                     <Label Content="Surname:" HorizontalAlignment="Left" Grid.Column="0" VerticalAlignment="Top" Height="26" Width="64" Grid.ColumnSpan="2" Margin="11,38,0,0" Grid.RowSpan="2"/>
                     <TextBox x:Name="TxtBoxAddSurname" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding Path=newUser.Surname}" Height="20" Width="Auto" Margin="0,9,0,9"/>
-                    <Button x:Name="BtnSavUser" Grid.Column="2" Content="Add" HorizontalAlignment="Center" Command="{Binding AddUserCommand}" Grid.Row="2" Height="auto" Width="auto" VerticalAlignment="Center"/>
+                    <Button x:Name="BtnSavUser" Grid.Column="2" Content="Add" HorizontalAlignment="Center" Command="{Binding m_command_AddUser}" Grid.Row="2" Height="auto" Width="auto" VerticalAlignment="Center"/>
 
                 </Grid>
             </TabItem>

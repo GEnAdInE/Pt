@@ -16,26 +16,13 @@ namespace Task2.Presentation.Model
 
         public override States FindBook(string title, string author)
         {
-            int id = -1;
-            foreach (Catalogs c in Catalogs)
+            if(Catalogs.Count > 0 && States.Count > 0)
             {
-                if (c.Title == title && c.Author == author)
-                {
-                    id = c.Id;
-                }
+                Catalogs tmp = Catalogs.Where(x => x.Title == title && x.Author == author).First();
+                return States.Where(x => x.Book == tmp.Id).First();
             }
-
-            //If there is several copies of the book, there is several state in the list
-            Predicate<States> predicate = x => x.Book == id;
-            if (States.Exists(predicate))
-            {
-                return States.Find(predicate);
-            }
-            else
-            {
-                return null;
-            }
-
+            return null;
+           
         }
         public override void Borrow(string Title, string Author, string Name, string Surname)
         {
@@ -111,14 +98,43 @@ namespace Task2.Presentation.Model
         }
         public override void addBook(Catalogs catalog)
         {
-            Catalogs.Add(catalog);
-            States.Add(new States(){ Availible = 1, Book = catalog.Id});
+            int id = -1;
+            if (FindBook(catalog.Title, catalog.Author) == null)
+            {
+                dataContext.Catalogs.InsertOnSubmit(new Catalogs { Title = catalog.Title, Author = catalog.Author });
+                dataContext.SubmitChanges();
+                Catalogs = dataContext.GetTable<Catalogs>().ToList();
+                id = Catalogs.Where(x => x.Title == catalog.Title && x.Author == catalog.Author).First().Id;
+                dataContext.States.InsertOnSubmit(new States { Book = id, Availible = 1 });
+                dataContext.SubmitChanges();
+                States = dataContext.GetTable<States>().ToList();
+            }           
         }
         public override void addUser(Users user)
         {
             Users.Add(user);
         }
 
-      
+        public override void removeBook(string title,string author)
+        {
+            States s = FindBook(title, author);
+            if(s != null)
+            {
+                States.Remove(s);
+                Catalogs.Remove(Catalogs.Where(x => x.Title == title && x.Author == author).First());
+            }
+               
+           
+        }
+
+        public override void removeUser(string name,string firstname)
+        {
+            Users u = FindUser(name, firstname);
+            if(u != null)
+            {
+                Users.Remove(u);
+            }
+        }
+
     }
 }

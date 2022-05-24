@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task2.DataLayer;
 using System.Collections.ObjectModel;
+using Task2.Presentation.Model.Command;
 using Task2.Presentation.ViewModel.Base;
 
 namespace Task2.Presentation.ViewModel
@@ -13,10 +14,11 @@ namespace Task2.Presentation.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
 
+        
         private MainWindowModel mainModel = new MainWindowModel();
 
-        private ObservableCollection<Users> m_users;
-        public ObservableCollection<Users> Users
+        private ObservableCollection<User> m_users;
+        public ObservableCollection<User> Users
         {
             get => m_users;
             set
@@ -26,8 +28,8 @@ namespace Task2.Presentation.ViewModel
             }
         }
 
-        private ObservableCollection<Catalogs> m_catalogs;
-        public ObservableCollection<Catalogs> Catalogs
+        private ObservableCollection<Catalog> m_catalogs;
+        public ObservableCollection<Catalog> Catalogs
         {
             get => m_catalogs;
             set
@@ -37,8 +39,8 @@ namespace Task2.Presentation.ViewModel
             }
         } 
 
-        private Users m_user;
-        public Users SelectedUser
+        private User m_user;
+        public User SelectedUser
         {
             get => m_user;
             set
@@ -48,11 +50,23 @@ namespace Task2.Presentation.ViewModel
             }
         }
 
-        private Catalogs m_catalog;
+        private Catalog m_catalog;
         private bool m_status;
-        private Users m_newUser = new Users();
+        private User m_newUser = new User("", "");
+        private Catalog m_newCatalog = new Catalog("", "");
 
-        public Catalogs SelectedCatalog
+
+        public Catalog newCatalog
+        {
+            get => m_newCatalog;
+            set
+            {
+                m_newCatalog = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public Catalog SelectedCatalog
         {
             get => m_catalog;
             set
@@ -72,7 +86,7 @@ namespace Task2.Presentation.ViewModel
             }
         }
 
-        public Users newUser
+        public User newUser
         {
             get => m_newUser;
             set
@@ -82,60 +96,24 @@ namespace Task2.Presentation.ViewModel
             }
         }
 
-        public RelayCommand FetchDataCommand
-        {
-            get; private set;
-        }
+        public CommandBase m_command_AddBook { get; set; }
+        public CommandBase m_command_RemoveBook { get; set; }
+        public CommandBase m_command_AddUser { get; set; }
+        public CommandBase m_command_RemoveUser { get; set; }
 
-        public RelayCommand FetechAvaibilityCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand BorrowCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand ReturnCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand AddCatalogCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand AddUserCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand EditCatalogCommand
-        {
-            get; private set;
-        }
-
-        public RelayCommand EditUserCommand
-        {
-            get; private set;
-        }
 
 
         public MainWindowViewModel()
         {
-            mainModel.setDataContext();
-            
-          //NEED TO FETCH DATA ETC IDK HOW TO
-            FetchDataCommand = new RelayCommand(() => { });//TODO 
-            AddUserCommand = new RelayCommand (() =>
-            {
-                //m_users.Add(new User(newUser.Name, newUser.Surname));
-            });
-            FetechAvaibilityCommand = new RelayCommand(() => { Status = !Status; });//TODO
-            //m_catalog = new ObservableCollection<Catalogs>(mainModel.businessLogicAPI.dataAPI.Catalogs) ;//REMOVE
-            m_users = new ObservableCollection<Users>(mainModel.businessLogicAPI.dataAPI.Users);//REMOVE
+            m_users = new ObservableCollection<User>(mainModel.myLibrary.USER);
+            m_catalogs = new ObservableCollection<Catalog>(mainModel.myLibrary.CATALOG);
+
+            m_command_AddUser = new CommandAddUser(this, this.mainModel.myLibrary);
+            m_command_RemoveUser = new CommandDeleteUser(this, this.mainModel.myLibrary);
+
+            m_command_AddBook = new CommandCreateBook(this,ref this.mainModel.myLibrary);
+
+            m_command_RemoveBook= new CommandDeleteBook(this, this.mainModel.myLibrary);
 
 
         }

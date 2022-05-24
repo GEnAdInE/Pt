@@ -71,6 +71,9 @@ namespace Task2.DataLayer
         /// <param name="catalog"></param>
         public abstract void addBook(Catalogs catalog);
      
+        public abstract void removeUser(string name,string firstname);
+
+        public abstract void removeBook(string Title, string Author);
 
         /// <summary>
         /// Return the state of a book 
