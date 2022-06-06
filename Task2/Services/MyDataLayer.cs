@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Task2.DataLayer;
 
-namespace Task2.Presentation.Model
+namespace Task2.Services
 {
     public class MyDataLayer : AbstractDataAPI
     {

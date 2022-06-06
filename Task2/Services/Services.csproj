@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Logic\BusinessLogicAPI.cs" />
     <Compile Include="Logic\DataService.cs" />
+    <Compile Include="MyDataLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

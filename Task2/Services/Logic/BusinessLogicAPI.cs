@@ -26,11 +26,11 @@ namespace Task2.LogicLayer
     {
         public static DataClassesDataContext GetContext()
         {
-            
 
             string m_connection = "";
-            string _StringDb = @"sql\database.mdf";
+            string _StringDb = @"db.mdf";
             string _workingFOlder = Environment.CurrentDirectory;
+            Console.WriteLine(_workingFOlder);
             string _path = Path.Combine(_workingFOlder, _StringDb);
             FileInfo f = new FileInfo(_path);
             if (f.Exists)
@@ -38,9 +38,6 @@ namespace Task2.LogicLayer
                 m_connection = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={_path};Integrated Security=True;Connect Timeout=30";
             }
             return new DataClassesDataContext(m_connection);
-            
-
-
             
         }
     }

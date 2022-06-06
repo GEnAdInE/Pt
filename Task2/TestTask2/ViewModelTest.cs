@@ -11,19 +11,28 @@ namespace TestTask2
 
         MainWindowViewModel vwm1 = new MainWindowViewModel();
         MainWindowViewModel vwm2 = new MainWindowViewModel();
+
+        [TestInitialize]
+        public void init()
+        {
+            vwm1.mainModel.myLibrary.AddUser("Robin", "Moulinou");
+            vwm2.mainModel.myLibrary.AddUser("Robin", "Moulinou");
+
+        }
+
+
         [TestMethod]
         public void TestMethod1()
         {
-           
+          
 
             MyLibrary lib = vwm1.mainModel.myLibrary;
+          
 
             int initial = lib.STATES.Count;
             lib.AddState(new State(new Catalog("test", "test")));
             Assert.IsTrue(lib.STATES.Count == initial+1);
-         
-
-
+            
 
         }
         [TestMethod]

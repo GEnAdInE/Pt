@@ -14,8 +14,8 @@ namespace Task2.Presentation.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
 
-        
-        public MainWindowModel mainModel = new MainWindowModel();
+
+        public MainWindowModel mainModel;
 
         private ObservableCollection<User> m_users;
         public ObservableCollection<User> Users
@@ -135,17 +135,23 @@ namespace Task2.Presentation.ViewModel
 
         public MainWindowViewModel()
         {
+            mainModel = new MainWindowModel();
+            init();
+        }
+
+        private void init()
+        {
             m_users = new ObservableCollection<User>(mainModel.myLibrary.USER);
             m_catalogs = new ObservableCollection<Catalog>(mainModel.myLibrary.CATALOG);
 
             m_command_AddUser = new CommandAddUser(this, this.mainModel.myLibrary);
             m_command_RemoveUser = new CommandDeleteUser(this, this.mainModel.myLibrary);
 
-            m_command_AddBook = new CommandCreateBook(this,ref this.mainModel.myLibrary);
+            m_command_AddBook = new CommandCreateBook(this, ref this.mainModel.myLibrary);
 
-            m_command_RemoveBook= new CommandDeleteBook(this, this.mainModel.myLibrary);
+            m_command_RemoveBook = new CommandDeleteBook(this, this.mainModel.myLibrary);
 
-            m_command_Availible = new CommandIsAvailible(this,this.mainModel.myLibrary);
+            m_command_Availible = new CommandIsAvailible(this, this.mainModel.myLibrary);
 
             m_command_Borrow = new CommandBorrow(this, ref this.mainModel.myLibrary);
 

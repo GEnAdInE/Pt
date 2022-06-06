@@ -66,7 +66,6 @@
     <Compile Include="Model\Command\CommandEditUser.cs" />
     <Compile Include="Model\Command\CommandIsAvailible.cs" />
     <Compile Include="Model\Command\CommandReturn.cs" />
-    <Compile Include="Model\MyDataLayer.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\MainWindowModel.cs" />
     <Compile Include="Model\MyLibrary.cs" />

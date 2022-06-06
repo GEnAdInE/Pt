@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Task2.DataLayer;
 using Task2.LogicLayer;
+using Task2.Services;
 
 namespace Task2.Presentation.Model
 {
@@ -43,9 +44,9 @@ namespace Task2.Presentation.Model
                 catalogs.Add(book);
                 states.Add(st);
             }
-           
-         
         }
+
+   
 
         public void AddState(State state)
         {
