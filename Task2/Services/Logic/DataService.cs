@@ -62,5 +62,15 @@ namespace Task2.LogicLayer
         {
             logicAPI.dataAPI.EditBook(Title, Author, nTitle, nAuthor);
         }
+
+        public void removeBook(string title, string author)
+        {
+            logicAPI.dataAPI.removeBook(title, author);
+        }
+
+        public void removeUser(string name, string surname)
+        {
+            logicAPI.dataAPI.removeUser(name, surname);
+        }
     }
 }

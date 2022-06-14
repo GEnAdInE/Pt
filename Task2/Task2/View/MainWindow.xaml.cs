@@ -35,16 +35,6 @@ namespace Task2.Presentation.View
             Console.WriteLine("ICI");
         }
 
-        private void CmbBoxBook_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            viewModel.m_command_Availible.Execute(this);
-            viewModel.EditCatalog = new Model.Catalog(viewModel.SelectedCatalog.Title, viewModel.SelectedCatalog.Author);
-        }
-
-        private void CmbBoxUser_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            viewModel.EditUser = new Model.User(viewModel.SelectedUser.Name, viewModel.SelectedUser.Surname);
-
-        }
+  
     }
 }

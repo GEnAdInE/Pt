@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Task2.Presentation.ViewModel.Base
+namespace Task2.Presentation.ViewModel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

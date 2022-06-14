@@ -9,8 +9,8 @@ namespace TestTask2
     public class ViewModelTest
     {
 
-        MainWindowViewModel vwm1 = new MainWindowViewModel();
-        MainWindowViewModel vwm2 = new MainWindowViewModel();
+        MainWindowViewModel vwm1 = new MainWindowViewModel(new MainWindowModel(new MyTestLib()));
+        MainWindowViewModel vwm2 = new MainWindowViewModel(new MainWindowModel(new MyTestLib()));
 
         [TestInitialize]
         public void init()
@@ -26,8 +26,8 @@ namespace TestTask2
         {
           
 
-            MyLibrary lib = vwm1.mainModel.myLibrary;
-          
+            MyAbstractLib lib = vwm1.mainModel.myLibrary;
+
 
             int initial = lib.STATES.Count;
             lib.AddState(new State(new Catalog("test", "test")));
@@ -38,8 +38,8 @@ namespace TestTask2
         [TestMethod]
         public void Test2()
         {
-            MyLibrary lib = vwm1.mainModel.myLibrary;
-
+            MyAbstractLib lib = vwm2.mainModel.myLibrary;
+            
             lib.Borrow("test", "test", new User("Robin", "Moulinou"));
             Assert.IsTrue(lib.isAvailble("test", "test") == false);
             lib.Return("test", "test", new User("Robin", "Moulinou"));

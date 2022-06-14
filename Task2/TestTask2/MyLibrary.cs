@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Task2.LogicLayer;
+using Task2.Presentation.Model;
 using Task2.Services;
 
-namespace Task2.Presentation.Model
+namespace TestTask2
 {
-    public class MyLibrary : MyAbstractLib
+    public class MyTestLib : MyAbstractLib
     {
         private List<User> users;
         private List<Catalog> catalogs;
         private List<Event> events;
         private List<State> states;
-        private BusinessLogicAPI businesAPi;
 
         public override List<User> USER { get { return users; } set { users = value; } }
         public override List<Catalog> CATALOG { get { return catalogs; } set { catalogs = value; } }
@@ -23,14 +23,13 @@ namespace Task2.Presentation.Model
         public override List<State> STATES { get { return states; } set { states = value; } }
 
 
-        public MyLibrary()
+        public MyTestLib()
         {
             users = new List<User>();
             catalogs = new List<Catalog>();
             events = new List<Event>();
             states = new List<State>();
-            businesAPi = new BusinessLogicAPI(new MyDataLayer(LINQ.GetContext()));
-           
+            
         }
 
    
@@ -42,7 +41,6 @@ namespace Task2.Presentation.Model
                 catalogs.Add(state.Book);
             }
             states.Add(state);
-            businesAPi.service.AddBook(state.Book.Title, state.Book.Author);
 
         }
 
@@ -58,7 +56,6 @@ namespace Task2.Presentation.Model
         public override void AddUser(string surname,string firstname)
         {
             users.Add(new User(firstname, surname));
-            businesAPi.service.AddUser(firstname, surname);
 
         }
 
@@ -69,7 +66,6 @@ namespace Task2.Presentation.Model
                 if (users.Contains(u))
                 {
                     users.Remove(u);
-                    businesAPi.service.removeUser(u.Name, u.Surname);
 
                 }
 
@@ -85,7 +81,6 @@ namespace Task2.Presentation.Model
                 {
                 
                 catalogs.Remove(c);
-                businesAPi.service.removeBook(c.Title, c.Author);
 
                 }
             }
@@ -100,7 +95,6 @@ namespace Task2.Presentation.Model
                 {
                     events.Add(new Borrowing(state, user));
                     state.ChangeState();
-                    businesAPi.service.BorrowOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
 
                 }
             
@@ -116,7 +110,6 @@ namespace Task2.Presentation.Model
                     {
                         events.Add(new Returning(state, user));
                         state.ChangeState();
-                        businesAPi.service.ReturnOneBook(state.Book.Title, state.Book.Author, user.Name, user.Surname);
 
                     });
 
@@ -130,14 +123,19 @@ namespace Task2.Presentation.Model
         public override bool isAvailble(string title,string authoer)
         {
 
-            return true;
+            State s = states.Find(x => x.Book.Title == title && x.Book.Author == authoer);
+                if (s == null)
+                {
+                    return false;
+                }
+            return s.Available;
+                
             
            
         }
 
         public override void EditUser(string name,string firstname,string nName,string nfirstname)
         {
-            businesAPi.service.EditUSer(name,firstname,nName,nfirstname);
             User u = USER.Find(x => x.Name == name && x.Surname == firstname);
             u.Surname = nfirstname;
             u.Name = nName;
@@ -146,7 +144,6 @@ namespace Task2.Presentation.Model
 
         public override void EditBOok(string title, string authoer, string nTitle, string nAuthoer)
         {
-            businesAPi.service.EditBook(title, authoer, nTitle, nAuthoer);
             Catalog c = CATALOG.Find(x => x.Title == title && x.Author == authoer);
             c.Title = nTitle;
             c.Author = nAuthoer;

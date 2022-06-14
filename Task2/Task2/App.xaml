@@ -1,4 +1,4 @@
-﻿<Application x:Class="Task2.Presentation.App"
+﻿<Application x:Class="Task2.Presentation.View.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Task2.Presentation"

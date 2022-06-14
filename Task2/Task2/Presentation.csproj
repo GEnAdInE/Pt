@@ -57,21 +57,22 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Catalog.cs" />
-    <Compile Include="Model\Command\CommandAddUser.cs" />
-    <Compile Include="Model\Command\CommandBorrow.cs" />
-    <Compile Include="Model\Command\CommandCreateBook.cs" />
-    <Compile Include="Model\Command\CommandDeleteBook.cs" />
-    <Compile Include="Model\Command\CommandDeleteUser.cs" />
-    <Compile Include="Model\Command\CommandEditBook.cs" />
-    <Compile Include="Model\Command\CommandEditUser.cs" />
-    <Compile Include="Model\Command\CommandIsAvailible.cs" />
-    <Compile Include="Model\Command\CommandReturn.cs" />
+    <Compile Include="Model\MyLibraryAbstract.cs" />
+    <Compile Include="ViewModel\Command\CommandAddUser.cs" />
+    <Compile Include="ViewModel\Command\CommandBorrow.cs" />
+    <Compile Include="ViewModel\Command\CommandCreateBook.cs" />
+    <Compile Include="ViewModel\Command\CommandDeleteBook.cs" />
+    <Compile Include="ViewModel\Command\CommandDeleteUser.cs" />
+    <Compile Include="ViewModel\Command\CommandEditBook.cs" />
+    <Compile Include="ViewModel\Command\CommandEditUser.cs" />
+    <Compile Include="ViewModel\Command\CommandIsAvailible.cs" />
+    <Compile Include="ViewModel\Command\CommandReturn.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\MainWindowModel.cs" />
     <Compile Include="Model\MyLibrary.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Model\Command\CommandBase.cs" />
+    <Compile Include="ViewModel\Command\CommandBase.cs" />
     <Compile Include="ViewModel\Base\ViewModelBase.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
@@ -114,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj">
-      <Project>{73930886-ec19-4ef5-965e-d9e1438ef187}</Project>
+      <Project>{73930886-EC19-4EF5-965E-D9E1438EF187}</Project>
       <Name>Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services\Services.csproj">

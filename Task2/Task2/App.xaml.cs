@@ -9,7 +9,7 @@ using Task2.Presentation.Model;
 using Task2.Presentation.View;
 using Task2.Presentation.ViewModel;
 
-namespace Task2.Presentation
+namespace Task2.Presentation.View
 {
     /// <summary>
     /// Interaction logic for App.xaml

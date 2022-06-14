@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task2.Presentation.Model;
 using Task2.Presentation.ViewModel;
 
-namespace Task2.Presentation.Model.Command
+namespace Task2.Presentation.ViewModel
 {
     internal class CommandBorrow : CommandBase
     {
 
         private readonly MainWindowViewModel _mvw;
-        private readonly MyLibrary _lib;
+        private readonly MyAbstractLib _lib;
 
-        public CommandBorrow(MainWindowViewModel vwm, ref MyLibrary lib)
+        public CommandBorrow(MainWindowViewModel vwm, ref MyAbstractLib lib)
         {
             _mvw = vwm;
             _lib = lib;
